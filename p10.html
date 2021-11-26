@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <button onclick="permission()">Test Device Orientation</button>
+    <br /><br />
+    <div id="result"></div>
+</body>
+
+
+<script type="text/javascript" defer>
+    // use https://developer.mozilla.org/en-US/docs/Web/Events/Detecting_device_orientation
+    // request permission before usage
+    if (location.protocol != "https:") {
+        location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+    }
+    function permission() {
+        if (typeof (DeviceMotionEvent) !== "undefined" && typeof (DeviceMotionEvent.requestPermission) === "function") {
+            // (optional) Do something before API request prompt.
+            DeviceMotionEvent.requestPermission()
+                .then(response => {
+                    // (optional) Do something after API prompt dismissed.
+                    if (response == "granted") {
+                        window.addEventListener("devicemotion", (e) => {
+                            // do something for 'e' here.
+                            document.getElementById('result').innerHTML = e;
+                        })
+                    }
+                })
+                .catch(console.error)
+        } else {
+            alert("DeviceMotionEvent is not defined");
+        }
+    }
+</script>
+
+</html>
