@@ -7,12 +7,20 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #arrow {
+            font-size: 100px;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+        }
+    </style>
 </head>
 
 <body>
     <button onclick="permission()">Test Device Orientation</button>
     <br /><br />
-    <div id="result"></div>
+    <p id="arrow">↑</p>
 </body>
 
 
@@ -30,8 +38,8 @@
                     // (optional) Do something after API prompt dismissed.
                     if (response == "granted") {
                         window.addEventListener("devicemotion", (e) => {
-                            // do something for 'e' here.
-                            document.getElementById('result').innerHTML = e;
+                            var arrow = document.getElementById("arrow");
+                            arrow.style.transform = "rotateX("+e.accelerationIncludingGravity.x+"deg) rotateY("+e.accelerationIncludingGravity.y+"deg)";
                         })
                     }
                 })
